@@ -4,6 +4,10 @@
         <filter-name>AuthorizationFilter</filter-name>
         <filter-class>filters.AuthorizationFilter</filter-class>
     </filter>
+    <filter-mapping>
+        <filter-name>AuthorizationFilter</filter-name>
+        <servlet-name>InventoryServlet</servlet-name>
+    </filter-mapping>
     <servlet>
         <servlet-name>LoginServlet</servlet-name>
         <servlet-class>servlets.LoginServlet</servlet-class>

@@ -82,7 +82,7 @@ public class UserService {
     public boolean isExist(User user) {
         UserDB ud = new UserDB();
         User dbUser = ud.get(user.getEmail());
-        return dbUser.equals(user);
+        return user.equals(dbUser);
     }
 
     private boolean validate(User user) {

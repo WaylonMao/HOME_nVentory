@@ -15,9 +15,9 @@
     <body>
         <h1>Home Inventory</h1>
         <h2>Login</h2>
-        <table><form method="post">
+        <table class="main_table"><form method="post">
                 <tr>
-                    <td>Username:</td>
+                    <td>User Email:</td>
                     <td><input type="text" name="email" value="${email}" /></td>
                 </tr>
                 <tr>
@@ -26,7 +26,7 @@
                 </tr>
                 <tr>
                     <td><input type="hidden" name="action" value="login" /><input type="submit" value="Login" /></td></form>
-                <td><form action="registration" method="get"><input type="submit" value="Sign Up" /></form></td>
+                <td><form action="registration" method="post"><input type="submit" value="Sign Up" /></form></td>
         </tr>
 
     </table>

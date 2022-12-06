@@ -6,6 +6,9 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
+import modules.User;
+import services.RoleService;
+import services.UserService;
 
 /**
  *
@@ -23,7 +26,38 @@ public class RegistrationServlet extends HttpServlet {
 
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-
+        String action = req.getParameter("action");
+        if (action == null || !action.equals("reg")) {
+            this.doGet(req, resp);
+            return;
+        }
+        String email = req.getParameter("email");
+        String firstName = req.getParameter("firstName");
+        String lastName = req.getParameter("lastName");
+        String password1 = req.getParameter("password");
+        String password2 = req.getParameter("confirmPassword");
+        String message = "";
+        if (!password1.equals(password2)) {
+            req.setAttribute("email", email);
+            req.setAttribute("firstName", firstName);
+            req.setAttribute("lastName", lastName);
+            req.setAttribute("password", "");
+            req.setAttribute("confirmPassword", "");
+            req.setAttribute("message", "Two passwords do not match.");
+            this.doGet(req, resp);
+            return;
+        }
+        User newUser = new User(email, true, firstName, lastName, password1);
+        RoleService rs = new RoleService();
+        
+        // Set new user default as regular user.
+        newUser.setRole(rs.getRole(2));
+        
+        UserService us = new UserService();
+        message = us.add(newUser);
+        req.setAttribute("message", message);
+        this.doGet(req, resp);
+        return;
     }
 
 }

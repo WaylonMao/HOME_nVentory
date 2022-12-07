@@ -75,12 +75,26 @@ public class InventoryServlet extends HttpServlet {
 
         if (action != null && action.equals("delete")) {
             Integer itemId = Integer.parseInt(req.getParameter("itemId"));
+            Item item = is.getItem(itemId);
+            req.setAttribute("deleteItem", item);
+        }
+
+        if (action != null && action.equals("remove")) {
+            Integer itemId = Integer.parseInt(req.getParameter("itemId"));
             if (is.delete(is.getItem(itemId))) {
                 req.setAttribute("message", "Delete failed.");
             } else {
                 req.setAttribute("message", "Item has been deleted.");
             }
+            req.setAttribute("deleteItem", null);
         }
+
+        if (action != null && action.equals("edit")) {
+            Integer itemId = Integer.parseInt(req.getParameter("itemId"));
+            Item editItem = is.getItem(itemId);
+            req.setAttribute("editItem", editItem);
+        }
+
         doGet(req, resp);
         return;
     }

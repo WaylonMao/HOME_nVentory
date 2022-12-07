@@ -79,6 +79,7 @@ public class ProfileServlet extends HttpServlet {
             if (!user.getActive()) {
                 session.invalidate();
                 req.setAttribute("message", "Deactivated successfully.");
+                req.setAttribute("disable",true);
             } else {
                 req.setAttribute("message", "Deactivated failed.");
             }

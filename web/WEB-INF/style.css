@@ -24,7 +24,7 @@ h1,h2,h3,ul,th
 td{
     padding: 5px;
 }
-input[type=submit],[type=reset]{
+input[type=submit]{
     margin: 0;
     padding: 0;
     border-width: 0;
@@ -41,10 +41,10 @@ input[type=submit],[type=reset]{
     -webkit-transition: all 0.3s cubic-bezier(0.02, 0.01, 0.47, 1);
     transition: all 0.3s cubic-bezier(0.02, 0.01, 0.47, 1);
 }
-input[type=submit],[type=reset]:hover{
+input[type=submit]:hover{
     opacity: 0.75;
 }
-input[type=submit],[type=reset]:active{
+input[type=submit]:active{
     opacity: 1;
 }
 .message{
@@ -53,4 +53,5 @@ input[type=submit],[type=reset]:active{
     font-size: 1.2em;
     font-weight: bold;
     text-align: center;
+    color: royalblue;
 }

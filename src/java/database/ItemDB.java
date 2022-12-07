@@ -59,11 +59,8 @@ public class ItemDB {
         EntityManager em = DBUtil.getEmFactory().createEntityManager();
         EntityTransaction trans = em.getTransaction();
         try {
-            User user = newItem.getOwner();
-            user.getItemList().add(newItem);
             trans.begin();
             em.persist(newItem);
-            em.merge(user);
             trans.commit();
         } catch (Exception e) {
             trans.rollback();

@@ -56,10 +56,10 @@ public class InventoryServlet extends HttpServlet {
 
         if (action != null && action.equals("add")) {
             String message;
-            int categoryID = Integer.parseInt(req.getParameter("category"));
+            int categoryID = Integer.parseInt(req.getParameter("addCategory"));
             Category category = new CategoryDB().get(categoryID);
-            String itemName = req.getParameter("itemName");
-            Double price = transToDouble(req.getParameter("price"));
+            String itemName = req.getParameter("addItemName");
+            Double price = transToDouble(req.getParameter("addPrice"));
             Item item = new Item();
             item.setCategory(category);
             item.setItemName(itemName);
@@ -69,14 +69,15 @@ public class InventoryServlet extends HttpServlet {
                 req.setAttribute("message", "Invalid. Please re-enter.");
             } else {
                 req.setAttribute("message", "The item was successfully added to your inventory.");
+                req.setAttribute("action", null);
             }
-            req.setAttribute("action", null);
         }
 
         if (action != null && action.equals("delete")) {
             Integer itemId = Integer.parseInt(req.getParameter("itemId"));
             Item item = is.getItem(itemId);
             req.setAttribute("deleteItem", item);
+            req.setAttribute("action", null);
         }
 
         if (action != null && action.equals("remove")) {
@@ -87,12 +88,29 @@ public class InventoryServlet extends HttpServlet {
                 req.setAttribute("message", "Item has been deleted.");
             }
             req.setAttribute("deleteItem", null);
+            req.setAttribute("action", null);
         }
 
         if (action != null && action.equals("edit")) {
             Integer itemId = Integer.parseInt(req.getParameter("itemId"));
             Item editItem = is.getItem(itemId);
             req.setAttribute("editItem", editItem);
+            req.setAttribute("action", null);
+        }
+
+        if (action != null && action.equals("update")) {
+            Integer itemId = Integer.parseInt(req.getParameter("itemId"));
+            Item editItem = is.getItem(itemId);
+            editItem.setItemName(req.getParameter("itemName"));
+            editItem.setPrice(transToDouble(req.getParameter("price")));
+            editItem.setCategory(new CategoryDB().get(Integer.parseInt(req.getParameter("category"))));
+            if (is.update(editItem)) {
+                req.setAttribute("message", "Update failed.");
+            } else {
+                req.setAttribute("message", "Update successfully.");
+            }
+            req.setAttribute("editItem", null);
+            req.setAttribute("action", null);
         }
 
         doGet(req, resp);

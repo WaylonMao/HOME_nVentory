@@ -5,7 +5,7 @@
 <html>
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
-        <title>Home Inventory</title>
+        <title>Inventory</title>
         <style>
             <%@include file="/WEB-INF/style.css"%>
         </style>
@@ -73,7 +73,7 @@
                             <tr>
                                 <td>Category:</td>
                                 <td>
-                                    <select name="category">
+                                    <select name="addCategory">
                                         <c:forEach items="${categories}" var="category">
                                             <option value="${category.categoryId}">
                                                 ${category.categoryName}
@@ -84,11 +84,11 @@
                             </tr>
                             <tr>
                                 <td>Name:</td>
-                                <td><input type="text" name="itemName" /></td>
+                                <td><input type="text" name="addItemName" /></td>
                             </tr>
                             <tr>
                                 <td>Price:</td>
-                                <td><input type="text" name="price" /></td>
+                                <td><input type="text" name="addPrice" /></td>
                             </tr>
                             <tr>
                                 <td>
@@ -137,6 +137,7 @@
                             </tr>
                             <tr>
                                 <td>
+                                    <input type="hidden" name="itemId" value="${editItem.itemId}" />
                                     <input type="hidden" name="action" value="update" />
                                     <input type="submit" value="Save" />
                                 </td>

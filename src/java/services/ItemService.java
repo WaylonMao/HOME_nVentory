@@ -15,7 +15,7 @@ import modules.User;
  * @author WL
  */
 public class ItemService {
-    
+
     private List<Item> items;
     private ItemDB idb;
     private User user;
@@ -44,8 +44,21 @@ public class ItemService {
         idb.insertItem(item);
         return false;
     }
-    
-    public Item getItem(Integer itemID){
+
+    public boolean update(Item item) {
+        if (item == null || item.getCategory() == null || item.getCategory().equals("")
+                || item.getItemName() == null || item.getItemName().equals("") || !item.getOwner().equals(user)) {
+            return true;
+        }
+        double price = item.getPrice();
+        if (price < PRICE_MIN || price > PRICE_MAX) {
+            return true;
+        }
+        idb.updateItem(item);
+        return false;
+    }
+
+    public Item getItem(Integer itemID) {
         return idb.getItem(itemID);
     }
 

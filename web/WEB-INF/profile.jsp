@@ -10,7 +10,7 @@
 <html>
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-        <title>Profile Page</title>
+        <title>Profile</title>
         <style>
             <%@include file="/WEB-INF/style.css"%>
         </style>
@@ -21,7 +21,8 @@
             <h3>Menu</h3>
             <ul>
                 <li><a href="inventory">Inventory</a></li>
-                <c:if test="${user.role.roleId==1}"><li><a href="admin">Admin</a></li></c:if>   
+                <c:if test="${user.role.roleId==1}"><li><a href="admin">Admin</a></li></c:if>
+                    <li><a href="?action=logout">Logout</a></li>
                 </ul>
                 <h2>Profile for ${user.firstName} ${user.lastName}</h2>
         </c:if>

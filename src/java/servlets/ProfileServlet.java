@@ -19,6 +19,13 @@ public class ProfileServlet extends HttpServlet {
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+        String action = req.getParameter("action");
+        if (action != null && action.equals("logout")) {
+            HttpSession session = req.getSession();
+            session.invalidate();
+            resp.sendRedirect("login");
+            return;
+        }
         HttpSession session = req.getSession();
         User user = (User) session.getAttribute("user");
         req.setAttribute("user", user);
@@ -79,7 +86,7 @@ public class ProfileServlet extends HttpServlet {
             if (!user.getActive()) {
                 session.invalidate();
                 req.setAttribute("message", "Deactivated successfully.");
-                req.setAttribute("disable",true);
+                req.setAttribute("disable", true);
             } else {
                 req.setAttribute("message", "Deactivated failed.");
             }

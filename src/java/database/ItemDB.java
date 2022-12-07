@@ -94,6 +94,7 @@ public class ItemDB {
             user.getItemList().remove(item);
             trans.begin();
             em.remove(em.merge(item));
+            em.merge(user);
             trans.commit();
         } catch (Exception e) {
             trans.rollback();

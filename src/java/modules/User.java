@@ -159,7 +159,7 @@ public class User implements Serializable {
     }
 
     public boolean getIsAdmin() {
-        return this.getRole().getRoleId()==1;
+        return this.getRole().getRoleId() == 1;
     }
-    
+
 }

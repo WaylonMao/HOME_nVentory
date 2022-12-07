@@ -14,7 +14,7 @@ import services.UserService;
  * @author WL
  */
 public class LoginServlet extends HttpServlet {
-    
+
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         HttpSession session = req.getSession();
@@ -37,7 +37,7 @@ public class LoginServlet extends HttpServlet {
         String action = req.getParameter("action");
         String email = req.getParameter("email");
         String password = req.getParameter("password");
-        if (action == null || !action.equals("login") || email == null 
+        if (action == null || !action.equals("login") || email == null
                 || email.equals("") || password == null || password.equals("")) {
             req.setAttribute("message", "Invalid login.");
             req.setAttribute("email", email);
@@ -47,14 +47,13 @@ public class LoginServlet extends HttpServlet {
         }
         UserService us = new UserService();
         User user = us.get(email);
-        if (user == null||!user.getActive()) {
+        if (user == null || !user.getActive() || !user.getPassword().equals(password)) {
             req.setAttribute("message", "Invalid login.");
             req.setAttribute("email", email);
             req.setAttribute("password", "");
             doGet(req, resp);
             return;
-        }        
-        
+        }
         HttpSession session = req.getSession();
         session.setAttribute("user", user);
         if (user.getIsAdmin()) {
@@ -64,5 +63,5 @@ public class LoginServlet extends HttpServlet {
         }
         return;
     }
-    
+
 }

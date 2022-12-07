@@ -48,9 +48,6 @@ public class UserService {
     }
 
     public String update(User user) {
-        if (USER == null||!(USER.equals(user)||USER.getIsAdmin())) {
-            return "Unauthorized!";
-        }
         UserDB ud = new UserDB();
         User targetUser = ud.get(user.getEmail());
         if (targetUser == null) {
@@ -90,7 +87,6 @@ public class UserService {
         String firstName = user.getFirstName();
         String lastName = user.getLastName();
         String password = user.getPassword();
-        Role role = user.getRole();
         if (email == null || email.isEmpty() || email.length() > 40
                 || !email.matches("^\\w+([-+.]\\w+)*@\\w+([-.]\\w+)*\\.\\w+([-.]\\w+)*$")) {
             return false;

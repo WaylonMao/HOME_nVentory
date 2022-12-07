@@ -24,7 +24,7 @@ h1,h2,h3,ul,th
 td{
     padding: 5px;
 }
-input[type=submit]{
+input[type=submit],[type=reset]{
     margin: 0;
     padding: 0;
     border-width: 0;
@@ -41,10 +41,10 @@ input[type=submit]{
     -webkit-transition: all 0.3s cubic-bezier(0.02, 0.01, 0.47, 1);
     transition: all 0.3s cubic-bezier(0.02, 0.01, 0.47, 1);
 }
-input[type=submit]:hover{
+input[type=submit],[type=reset]:hover{
     opacity: 0.75;
 }
-input[type=submit]:active{
+input[type=submit],[type=reset]:active{
     opacity: 1;
 }
 .message{

@@ -61,9 +61,6 @@ public class UserService {
     }
 
     public String delete(User user) {
-        if (USER == null || !USER.getIsAdmin()) {
-            return "Unauthorized!";
-        }
         if (user.equals(USER)) {
             return "You cannot delete yourself.";
         }

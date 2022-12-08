@@ -5,8 +5,10 @@
  */
 package services;
 
+import database.CategoryDB;
 import database.ItemDB;
 import java.util.List;
+import modules.Category;
 import modules.Item;
 import modules.User;
 
@@ -16,7 +18,6 @@ import modules.User;
  */
 public class ItemService {
 
-    private List<Item> items;
     private ItemDB idb;
     private User user;
     private final int PRICE_MIN = 1;
@@ -25,19 +26,19 @@ public class ItemService {
     public ItemService(User user) {
         this.idb = new ItemDB();
         this.user = user;
-        this.items = idb.getItemsOf(user);
     }
 
-    public List<Item> getItems() {
-        return items;
-    }
-
-    public boolean add(Item item) {
+    public boolean add(String itemName, Double price, User user, Integer categoryId) {
+        Category category = new CategoryDB().get(categoryId);
+        Item item = new Item();
+        item.setCategory(category);
+        item.setItemName(itemName);
+        item.setOwner(user);
+        item.setPrice(price);
         if (item == null || item.getCategory() == null || item.getCategory().equals("")
                 || item.getItemName() == null || item.getItemName().equals("") || !item.getOwner().equals(user)) {
             return true;
         }
-        double price = item.getPrice();
         if (price < PRICE_MIN || price > PRICE_MAX) {
             return true;
         }
@@ -62,7 +63,8 @@ public class ItemService {
         return idb.getItem(itemID);
     }
 
-    public boolean delete(Item item) {
+    public boolean delete(Integer itemId) {
+        Item item = this.getItem(itemId);
         if (item == null || !item.getOwner().equals(user)) {
             return true;
         }
@@ -72,13 +74,5 @@ public class ItemService {
         } catch (Exception e) {
             return true;
         }
-    }
-
-    public String getPrice(Item item) {
-        String value = "";
-        double double_value = 0;
-        double_value += item.getPrice();
-        value = String.format("$%,d", double_value);
-        return value;
     }
 }

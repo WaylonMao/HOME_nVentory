@@ -1,6 +1,7 @@
 package servlets;
 
 import database.CategoryDB;
+import database.UserDB;
 import java.io.IOException;
 import java.util.List;
 import javax.servlet.ServletException;
@@ -30,13 +31,14 @@ public class InventoryServlet extends HttpServlet {
         }
         HttpSession session = req.getSession();
         User user = (User) session.getAttribute("user");
+        user = new UserDB().get(user.getEmail());
         if (user == null) {
             resp.sendRedirect("login");
             return;
         }
         ItemService is = new ItemService(user);
         CategoryDB cdb = new CategoryDB();
-        List<Item> items = is.getItems();
+        List<Item> items = user.getItemList();
         List<Category> categories = cdb.getAll();
         req.setAttribute("user", user);
         req.setAttribute("items", items);
@@ -52,24 +54,19 @@ public class InventoryServlet extends HttpServlet {
         String action = req.getParameter("action");
         HttpSession session = req.getSession();
         User user = (User) session.getAttribute("user");
+        user = new UserDB().get(user.getEmail());
         ItemService is = new ItemService(user);
 
         if (action != null && action.equals("add")) {
             String message;
-            int categoryID = Integer.parseInt(req.getParameter("addCategory"));
-            Category category = new CategoryDB().get(categoryID);
+            int categoryId = Integer.parseInt(req.getParameter("addCategory"));
             String itemName = req.getParameter("addItemName");
             Double price = transToDouble(req.getParameter("addPrice"));
-            Item item = new Item();
-            item.setCategory(category);
-            item.setItemName(itemName);
-            item.setOwner(user);
-            item.setPrice(price);
-            if (is.add(item)) {
+
+            if (is.add(itemName, price, user, categoryId)) {
                 req.setAttribute("message", "Invalid. Please re-enter.");
             } else {
                 req.setAttribute("message", "The item was successfully added to your inventory.");
-                req.setAttribute("action", null);
             }
         }
 
@@ -77,25 +74,22 @@ public class InventoryServlet extends HttpServlet {
             Integer itemId = Integer.parseInt(req.getParameter("itemId"));
             Item item = is.getItem(itemId);
             req.setAttribute("deleteItem", item);
-            req.setAttribute("action", null);
         }
 
         if (action != null && action.equals("remove")) {
             Integer itemId = Integer.parseInt(req.getParameter("itemId"));
-            if (is.delete(is.getItem(itemId))) {
+            if (is.delete(itemId)) {
                 req.setAttribute("message", "Delete failed.");
             } else {
-                req.setAttribute("message", "Item has been deleted.");
+                req.setAttribute("message", "Item has been deleted successfully.");
             }
             req.setAttribute("deleteItem", null);
-            req.setAttribute("action", null);
         }
 
         if (action != null && action.equals("edit")) {
             Integer itemId = Integer.parseInt(req.getParameter("itemId"));
             Item editItem = is.getItem(itemId);
             req.setAttribute("editItem", editItem);
-            req.setAttribute("action", null);
         }
 
         if (action != null && action.equals("update")) {
@@ -110,8 +104,8 @@ public class InventoryServlet extends HttpServlet {
                 req.setAttribute("message", "Update successfully.");
             }
             req.setAttribute("editItem", null);
-            req.setAttribute("action", null);
         }
+        req.setAttribute("action", null);
 
         doGet(req, resp);
         return;

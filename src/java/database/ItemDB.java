@@ -1,6 +1,5 @@
 package database;
 
-import java.util.ArrayList;
 import java.util.List;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityTransaction;
@@ -13,16 +12,6 @@ import modules.User;
  */
 public class ItemDB {
 
-    public List<Item> getItems() {
-        EntityManager em = DBUtil.getEmFactory().createEntityManager();
-        try {
-            List<Item> items = em.createNamedQuery("Item.findAll", Item.class).getResultList();
-            return items;
-        } finally {
-            em.close();
-        }
-    }
-
     public Item getItem(Integer itemID) {
         EntityManager em = DBUtil.getEmFactory().createEntityManager();
         try {
@@ -33,34 +22,15 @@ public class ItemDB {
         }
     }
 
-    public void updateItems(List<Item> items) {
-        for (Item item : items) {
-            this.updateItem(item);
-        }
-    }
-
-    public List<Item> getItemsOf(User user) {
-        try {
-            List<Item> items = getItems();
-            List<Item> userItems = new ArrayList<>();
-            for (Item item : items) {
-                if (item.getOwner().equals(user)) {
-                    userItems.add(item);
-                }
-            }
-            return userItems;
-        } catch (Exception e) {
-            System.out.println("Exception during getting Items");
-        }
-        return null;
-    }
-
     public void insertItem(Item newItem) {
         EntityManager em = DBUtil.getEmFactory().createEntityManager();
         EntityTransaction trans = em.getTransaction();
-        try {
+        try {            
+            User user = newItem.getOwner();
+            user.getItemList().add(newItem);
             trans.begin();
             em.persist(newItem);
+            em.merge(user);
             trans.commit();
         } catch (Exception e) {
             trans.rollback();

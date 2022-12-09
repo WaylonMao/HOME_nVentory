@@ -26,7 +26,8 @@ CREATE TABLE IF NOT EXISTS `inventorydb`.`user` (
   `active` TINYINT(1) NOT NULL DEFAULT '1',
   `first_name` VARCHAR(20) NOT NULL,
   `last_name` VARCHAR(20) NOT NULL,
-  `password` VARCHAR(20) NOT NULL,
+  `password` VARCHAR(70) NOT NULL,
+  `salt` VARCHAR(70),
   `role` INT(11) NOT NULL,
   PRIMARY KEY (`email`),
   CONSTRAINT `fk_user_role`

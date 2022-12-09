@@ -1,7 +1,10 @@
 package servlets;
 
 import java.io.IOException;
+import java.security.NoSuchAlgorithmException;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -9,6 +12,7 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import modules.Role;
 import modules.User;
+import services.HashPasswordUtil;
 import services.RoleService;
 import services.UserService;
 
@@ -64,7 +68,6 @@ public class AdminServlet extends HttpServlet {
                 boolean active = req.getParameter("active") != null;
                 String firstName = req.getParameter("firstName");
                 String lastName = req.getParameter("lastName");
-                String password = req.getParameter("password");
                 String roleId = req.getParameter("role");
                 RoleService rs = new RoleService();
                 Role role = rs.getRole(Integer.parseInt(roleId));
@@ -75,7 +78,6 @@ public class AdminServlet extends HttpServlet {
                 user.setEmail(email);
                 user.setFirstName(firstName);
                 user.setLastName(lastName);
-                user.setPassword(password);
 
                 req.setAttribute("message", us.update(user));
 
@@ -92,15 +94,7 @@ public class AdminServlet extends HttpServlet {
                 RoleService rs = new RoleService();
                 Role role = rs.getRole(Integer.parseInt(roleId));
 
-                User user = new User();
-                user.setActive(active);
-                user.setRole(role);
-                user.setEmail(email);
-                user.setFirstName(firstName);
-                user.setLastName(lastName);
-                user.setPassword(password);
-
-                req.setAttribute("message", us.add(user));
+                req.setAttribute("message", us.add(email, firstName, lastName, password, role));
 
                 break;
             }
@@ -131,6 +125,39 @@ public class AdminServlet extends HttpServlet {
 
                 req.setAttribute("message", us.delete(deleteUser));
 
+                break;
+            }
+            case "changePassword": {
+                String email = req.getParameter("email");
+                User user = us.get(email);
+                req.setAttribute("passUser", user);
+
+                break;
+            }
+            case "cancelPassword": {
+                req.setAttribute("passUser", null);
+                break;
+            }
+            case "confirmPassword": {
+                String password = req.getParameter("newPassword");
+                if (password == null || password == "" || password.indexOf(" ") >= 0) {
+                    req.setAttribute("message", "Invalid Password!");
+                    req.setAttribute("passUser", null);
+                    break;
+                }
+                String email = req.getParameter("email");
+                User user = us.get(email);
+                String salt = HashPasswordUtil.getSalt();
+                try {
+                    String newPassword = HashPasswordUtil.hashAndSaltPassword(password, salt);
+                    user.setPassword(newPassword);
+                    user.setSalt(salt);
+                } catch (NoSuchAlgorithmException ex) {
+                    req.setAttribute("message", "NoSuchAlgorithmException.");
+                    req.setAttribute("passUser", null);
+                    break;
+                }
+                req.setAttribute("message", us.update(user));
                 break;
             }
             default: {

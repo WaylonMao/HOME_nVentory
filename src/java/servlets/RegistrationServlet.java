@@ -1,12 +1,16 @@
 package servlets;
 
 import java.io.IOException;
+import java.security.NoSuchAlgorithmException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import modules.User;
+import services.HashPasswordUtil;
 import services.RoleService;
 import services.UserService;
 
@@ -47,14 +51,8 @@ public class RegistrationServlet extends HttpServlet {
             this.doGet(req, resp);
             return;
         }
-        User newUser = new User(email, true, firstName, lastName, password1);
-        RoleService rs = new RoleService();
-        
         // Set new user default as regular user.
-        newUser.setRole(rs.getRole(2));
-        
-        UserService us = new UserService();
-        message = us.add(newUser);
+        message = new UserService().add(email,firstName,lastName,password1,new RoleService().getRole(2));
         req.setAttribute("message", message);
         this.doGet(req, resp);
         return;

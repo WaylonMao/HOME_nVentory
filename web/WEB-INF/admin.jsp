@@ -37,6 +37,7 @@
                                 <th>Email</th>
                                 <th>Role</th>
                                 <th>Edit</th>
+                                <th>Change Password</th>
                                 <th>Delete</th>
                             </tr>
                         <c:forEach items="${users}" var="user">
@@ -53,6 +54,29 @@
                                         <input type="hidden" name="action" value="edit"/>
                                         <input type="submit" value="Edit"/>
                                     </form>
+                                </td>
+                                <td>
+                                    <c:choose>
+                                        <c:when test="${passUser == null||passUser.email!=user.email}">
+                                            <form method="post">
+                                                <input type="hidden" name="email" value="${user.email}"/>
+                                                <input type="hidden" name="action" value="changePassword"/>
+                                                <input type="submit" value="Change Password"/>
+                                            </form>
+                                        </c:when>
+                                        <c:otherwise>
+                                            <form method="post">
+                                                <input type="hidden" name="email" value="${user.email}"/>
+                                                <input type="hidden" name="action" value="confirmPassword"/>
+                                                <input type="text" name="newPassword"/>
+                                                <input type="submit" value="✓"/>
+                                            </form>
+                                            <form method="post">
+                                                <input type="hidden" name="action" value="cancelPassword"/>
+                                                <input type="submit" value="✗"/>
+                                            </form>
+                                        </c:otherwise>
+                                    </c:choose>
                                 </td>
                                 <td>
                                     <form method="post">
@@ -139,10 +163,6 @@
                                 <tr>
                                     <td>Last Name:</td>
                                     <td><input type="text" name="lastName" value="${editUser.lastName}"/></td>
-                                </tr>
-                                <tr>
-                                    <td>Password:</td>
-                                    <td><input type="text" name="password" value="${editUser.password}"/></td>
                                 </tr>
                                 <tr>
                                     <td>Role:</td>

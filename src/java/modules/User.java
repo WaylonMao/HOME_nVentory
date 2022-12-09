@@ -35,7 +35,8 @@ import javax.xml.bind.annotation.XmlTransient;
     , @NamedQuery(name = "User.findByActive", query = "SELECT u FROM User u WHERE u.active = :active")
     , @NamedQuery(name = "User.findByFirstName", query = "SELECT u FROM User u WHERE u.firstName = :firstName")
     , @NamedQuery(name = "User.findByLastName", query = "SELECT u FROM User u WHERE u.lastName = :lastName")
-    , @NamedQuery(name = "User.findByPassword", query = "SELECT u FROM User u WHERE u.password = :password")})
+    , @NamedQuery(name = "User.findByPassword", query = "SELECT u FROM User u WHERE u.password = :password")
+    , @NamedQuery(name = "User.findBySalt", query = "SELECT u FROM User u WHERE u.salt = :salt")})
 public class User implements Serializable {
 
     private static final long serialVersionUID = 1L;
@@ -55,6 +56,8 @@ public class User implements Serializable {
     @Basic(optional = false)
     @Column(name = "password")
     private String password;
+    @Column(name = "salt")
+    private String salt;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "owner", fetch = FetchType.EAGER)
     private List<Item> itemList;
     @JoinColumn(name = "role", referencedColumnName = "role_id")
@@ -74,6 +77,15 @@ public class User implements Serializable {
         this.firstName = firstName;
         this.lastName = lastName;
         this.password = password;
+    }
+
+    public User(String email, boolean active, String firstName, String lastName, String password, String salt) {
+        this.email = email;
+        this.active = active;
+        this.firstName = firstName;
+        this.lastName = lastName;
+        this.password = password;
+        this.salt = salt;
     }
 
     public String getEmail() {
@@ -114,6 +126,14 @@ public class User implements Serializable {
 
     public void setPassword(String password) {
         this.password = password;
+    }
+
+    public String getSalt() {
+        return salt;
+    }
+
+    public void setSalt(String salt) {
+        this.salt = salt;
     }
 
     @XmlTransient
@@ -159,7 +179,6 @@ public class User implements Serializable {
     }
 
     public boolean getIsAdmin() {
-        return this.getRole().getRoleId() == 1;
+        return role.getRoleId() == 1;
     }
-
 }

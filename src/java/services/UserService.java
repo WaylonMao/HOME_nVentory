@@ -2,6 +2,7 @@ package services;
 
 import java.util.List;
 import database.UserDB;
+import java.security.NoSuchAlgorithmException;
 import modules.Role;
 import modules.User;
 
@@ -34,17 +35,37 @@ public class UserService {
         return user;
     }
 
-    public String add(User user) {
+//    public String add(User user) {
+//
+//        UserDB ud = new UserDB();
+//        if (!validate(user)) {
+//            return "Invalid user data! Please try again.";
+//        }
+//        if (ud.get(user.getEmail()) != null) {
+//            return "User's email address already exists!";
+//        }
+//        ud.insert(user);
+//        return "User added successfully!";
+//    }
 
-        UserDB ud = new UserDB();
-        if (!validate(user)) {
-            return "Invalid user data! Please try again.";
+    public String add(String email, String firstName, String lastName, String password, Role role) {
+        try {
+            String salt = HashPasswordUtil.getSalt();
+            String hashedPassword = HashPasswordUtil.hashAndSaltPassword(password, salt);
+            User user = new User(email, true, firstName, lastName, hashedPassword, salt);
+            user.setRole(role);
+            UserDB ud = new UserDB();
+            if (!validate(user)) {
+                return "Invalid user data! Please try again.";
+            }
+            if (ud.get(user.getEmail()) != null) {
+                return "User's email address already exists!";
+            }
+            ud.insert(user);
+            return "User added successfully!";
+        } catch (NoSuchAlgorithmException ex) {
+            return "NoSuchAlgorithmException.";
         }
-        if (ud.get(user.getEmail()) != null) {
-            return "User's email address already exists!";
-        }
-        ud.insert(user);
-        return "User added successfully!";
     }
 
     public String update(User user) {
@@ -53,8 +74,21 @@ public class UserService {
         if (targetUser == null) {
             return "User not found!";
         }
-        if(!USER.getIsAdmin()&&!user.getEmail().equals(USER.getEmail())){
+        if (!USER.getIsAdmin() && !user.getEmail().equals(USER.getEmail())) {
             return "You do not have permission!";
+        }
+        if (validate(user)) {
+            ud.update(user);
+            return "User updated successfully!";
+        }
+        return "Invalid user data! Please try again.";
+    }
+
+    public String suUpdate(User user) {
+        UserDB ud = new UserDB();
+        User targetUser = ud.get(user.getEmail());
+        if (targetUser == null) {
+            return "User not found!";
         }
         if (validate(user)) {
             ud.update(user);
@@ -97,7 +131,7 @@ public class UserService {
         if (lastName == null || lastName.isEmpty() || lastName.length() > 20) {
             return false;
         }
-        if (password == null || password.isEmpty() || password.length() > 20) {
+        if (password == null || password.isEmpty() || password.length() > 70) {
             return false;
         }
         return true;

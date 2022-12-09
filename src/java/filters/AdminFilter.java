@@ -12,6 +12,7 @@ import javax.servlet.FilterConfig;
 import javax.servlet.ServletException;
 import javax.servlet.ServletRequest;
 import javax.servlet.ServletResponse;
+import javax.servlet.annotation.WebFilter;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
@@ -22,7 +23,8 @@ import services.UserService;
  *
  * @author WL
  */
-public class AuthorizationFilter implements Filter {
+@WebFilter(filterName = "AdminFilter", servletNames = {"AdminServlet"})
+public class AdminFilter implements Filter {
 
     @Override
     public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain) throws IOException, ServletException {
@@ -35,7 +37,12 @@ public class AuthorizationFilter implements Filter {
             httpResponse.sendRedirect("login");
             return;
         }
-        // pass the request or response along to the next filter or servlet in the chain.
+        
+        if(!user.getIsAdmin()){
+            HttpServletResponse httpResponse = (HttpServletResponse) response;
+            httpResponse.sendRedirect("inventory");
+            return;
+        }
         chain.doFilter(request, response);
     }
 

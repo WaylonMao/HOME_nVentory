@@ -27,15 +27,15 @@
                 <h2>Profile for ${user.firstName} ${user.lastName}</h2>
         </c:if>
         <div><c:if test="${disable==null}">
-                <form method="post">
-                    <table class="side_table">
-                        <tr>
-                            <th>Email:</th>
-                            <td>${user.email}</td>
-                        </tr>
-                        <tr>
-                            <th>First Name:</th>
-                            <td><input type="text" name="firstName" value="${user.firstName}" /></td>
+
+                <table class="side_table">
+                    <tr>
+                        <th>Email:</th>
+                        <td>${user.email}</td>
+                    </tr>
+                    <tr>
+                        <th>First Name:</th>
+                    <form method="post"><td><input type="text" name="firstName" value="${user.firstName}" /></td>
                         </tr>
                         <tr>
                             <th>Last Name:</th>
@@ -62,11 +62,12 @@
                         </c:choose>
                         <tr>
                             <th><input type="hidden" name="action" value="update"/>
-                                <input type="submit" value="Confirm"/></th>
-                            <td></td>
-                        </tr>
-                    </table>
-                </form>
+                                <input type="submit" value="Confirm"/></th></form>
+                    <td><form method="post"><input type="hidden" name="action" value="cancel"/>
+                            <input type="submit" value="Cancel"/></form></td>
+                    </tr>
+                </table>
+
 
                 <form method="post">
                     <table class="main_table">

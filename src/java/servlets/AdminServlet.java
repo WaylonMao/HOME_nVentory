@@ -44,7 +44,9 @@ public class AdminServlet extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         String action = req.getParameter("action");
-        UserService us = new UserService();
+        HttpSession session = req.getSession();
+        User admin = (User) session.getAttribute("user");
+        UserService us = new UserService(admin);
         switch (action) {
             case "edit": {
                 String email = req.getParameter("email");

@@ -105,27 +105,26 @@
                 <h2>Edit Item</h2>
                 <div>
                     <table class="side_table">
-                        <form method="post">
-                            <tr>
-                                <td>Category:</td>
-                                <td>
-                                    <select name="category">
-                                        <c:forEach items="${categories}" var="category">
-                                            <c:choose>
-                                                <c:when test="${editItem.category.categoryId == category.categoryId}">
-                                                    <option value="${category.categoryId}" selected="selected">
-                                                        ${category.categoryName}
-                                                    </option>
-                                                </c:when>
-                                                <c:otherwise>
-                                                    <option value="${category.categoryId}">
-                                                        ${category.categoryName}
-                                                    </option>
-                                                </c:otherwise>
-                                            </c:choose>
-                                        </c:forEach>
-                                    </select>
-                                </td>
+                        <tr><form method="post">
+                            <td>Category:</td>
+                            <td>
+                                <select name="category">
+                                    <c:forEach items="${categories}" var="category">
+                                        <c:choose>
+                                            <c:when test="${editItem.category.categoryId == category.categoryId}">
+                                                <option value="${category.categoryId}" selected="selected">
+                                                    ${category.categoryName}
+                                                </option>
+                                            </c:when>
+                                            <c:otherwise>
+                                                <option value="${category.categoryId}">
+                                                    ${category.categoryName}
+                                                </option>
+                                            </c:otherwise>
+                                        </c:choose>
+                                    </c:forEach>
+                                </select>
+                            </td>
                             </tr>
                             <tr>
                                 <td>Name:</td>
@@ -140,10 +139,10 @@
                                     <input type="hidden" name="itemId" value="${editItem.itemId}" />
                                     <input type="hidden" name="action" value="update" />
                                     <input type="submit" value="Save" />
-                                </td>
-                                <td></td>
-                            </tr>
-                        </form>
+                                </td></form>
+                        <td><form method="post"><input type="hidden" name="action" value="cancel" />
+                                <input type="submit" value="Cancel" /></form></td>
+                        </tr>
                     </table>
                 </div>
             </c:otherwise>

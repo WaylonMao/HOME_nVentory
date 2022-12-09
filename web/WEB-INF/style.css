@@ -47,6 +47,41 @@ input[type=submit]:hover{
 input[type=submit]:active{
     opacity: 1;
 }
+
+ul{
+    list-style: none;
+    padding-left: 0px;
+}
+
+li{
+    height: 30px;
+}
+
+a{
+    margin: auto;
+    padding: 0;
+    border-width: 0;
+    border-color: transparent;
+    background: transparent;
+    cursor: pointer;
+    position: relative;
+    padding: 3px 6px;
+    overflow: hidden;
+    border-width: 0;
+    border-radius: 4px;
+    background: #04AA6D;
+    color: #fff;
+    -webkit-transition: all 0.3s cubic-bezier(0.02, 0.01, 0.47, 1);
+    transition: all 0.3s cubic-bezier(0.02, 0.01, 0.47, 1);
+    text-decoration:none;
+}
+a:hover{
+    opacity: 0.75;
+}
+a:active{
+    opacity: 1;
+}
+
 .message{
     margin: auto;
     color: #333;

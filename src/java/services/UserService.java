@@ -53,6 +53,9 @@ public class UserService {
         if (targetUser == null) {
             return "User not found!";
         }
+        if(!USER.getIsAdmin()&&!user.getEmail().equals(USER.getEmail())){
+            return "You do not have permission!";
+        }
         if (validate(user)) {
             ud.update(user);
             return "User updated successfully!";

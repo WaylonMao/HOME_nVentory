@@ -12,6 +12,16 @@ import modules.User;
  */
 public class ItemDB {
 
+    public List<Item> getAllItems() {
+        EntityManager em = DBUtil.getEmFactory().createEntityManager();
+        try {
+            List<Item> items = em.createNamedQuery("Item.findAll", Item.class).getResultList();
+            return items;
+        } finally {
+            em.close();
+        }
+    }
+
     public Item getItem(Integer itemID) {
         EntityManager em = DBUtil.getEmFactory().createEntityManager();
         try {
@@ -25,7 +35,7 @@ public class ItemDB {
     public void insertItem(Item newItem) {
         EntityManager em = DBUtil.getEmFactory().createEntityManager();
         EntityTransaction trans = em.getTransaction();
-        try {            
+        try {
             User user = newItem.getOwner();
             user.getItemList().add(newItem);
             trans.begin();

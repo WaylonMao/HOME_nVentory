@@ -43,7 +43,12 @@ public class ProfileServlet extends HttpServlet {
 
         HttpSession session = req.getSession();
         User user = (User) session.getAttribute("user");
-        UserService us = new UserService();
+        UserService us = new UserService(user);
+        
+        if (action != null && action.equals("cancel")){
+            resp.sendRedirect("inventory");
+            return;
+        }
 
         if (action != null && action.equals("update")) {
             String firstName = req.getParameter("firstName");

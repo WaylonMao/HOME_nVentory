@@ -57,6 +57,10 @@ public class InventoryServlet extends HttpServlet {
         user = new UserDB().get(user.getEmail());
         ItemService is = new ItemService(user);
 
+        if (action != null && action.equals("cancel")) {
+            req.setAttribute("editItem", null);
+        }
+
         if (action != null && action.equals("add")) {
             String message;
             int categoryId = Integer.parseInt(req.getParameter("addCategory"));

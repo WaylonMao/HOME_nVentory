@@ -15,6 +15,7 @@
         <ul>
             <li><a href="inventory">Inventory</a></li>
             <li><a href="profile">Profile</a></li>
+            <li><a href="inventory_search">Search</a></li>
             <li><a href="category">Category</a></li>
             <li><a href="?action=logout">Logout</a></li>
         </ul>

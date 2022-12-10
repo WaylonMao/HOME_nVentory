@@ -7,7 +7,6 @@ package services;
 
 import database.CategoryDB;
 import database.ItemDB;
-import java.util.List;
 import modules.Category;
 import modules.Item;
 import modules.User;

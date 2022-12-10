@@ -1,7 +1,6 @@
 package servlets;
 
 import database.ItemDB;
-import database.UserDB;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
@@ -11,7 +10,6 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import modules.Item;
-import modules.User;
 
 /**
  *

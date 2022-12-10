@@ -20,11 +20,15 @@
         <c:if test="${disable==null}">
             <h3>Menu</h3>
             <ul>
-                <li><a href="inventory">Inventory</a></li>
-                <c:if test="${user.role.roleId==1}"><li><a href="admin">Admin</a></li></c:if>
-                    <li><a href="?action=logout">Logout</a></li>
-                </ul>
-                <h2>Profile for ${user.firstName} ${user.lastName}</h2>
+                <c:if test="${user.role.roleId==1}">
+                    <li><a class="a_menu" href="admin">Admin</a></li>
+                    <li><a class="a_menu" href="inventory_search">Search</a></li>
+                    <li><a class="a_menu" href="category">Category</a></li>
+                    </c:if>
+                <li><a class="a_menu" href="inventory">Inventory</a></li>
+                <li><a class="a_menu" href="?action=logout">Logout</a></li>
+            </ul>
+            <h2>Profile for ${user.firstName} ${user.lastName}</h2>
         </c:if>
         <div><c:if test="${disable==null}">
 
@@ -56,7 +60,7 @@
                             <c:otherwise>
                                 <tr>
                                     <th></th>
-                                    <td><a href="?changePassword=true">Change Password</a></td>                                
+                                    <td><a class="a_green" href="?changePassword=true">Change Password</a></td>                                
                                 </tr>
                             </c:otherwise>
                         </c:choose>
@@ -92,7 +96,7 @@
                     </table>
                 </form>
             <c:if test="${disable==true}">
-                <h3><a href="/HOME_nVentory">Home Page</a></h3>
+                <h3><a class="a_menu" href="/HOME_nVentory">Home Page</a></h3>
             </c:if>                    
         </div>
     </body>

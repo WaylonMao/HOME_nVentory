@@ -35,19 +35,6 @@ public class UserService {
         return user;
     }
 
-//    public String add(User user) {
-//
-//        UserDB ud = new UserDB();
-//        if (!validate(user)) {
-//            return "Invalid user data! Please try again.";
-//        }
-//        if (ud.get(user.getEmail()) != null) {
-//            return "User's email address already exists!";
-//        }
-//        ud.insert(user);
-//        return "User added successfully!";
-//    }
-
     public String add(String email, String firstName, String lastName, String password, Role role) {
         try {
             String salt = HashPasswordUtil.getSalt();

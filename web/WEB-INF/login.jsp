@@ -26,7 +26,7 @@
                 </tr>
                 <tr>
                     <td><input type="hidden" name="action" value="login" /><input type="submit" value="Login" /></td></form>
-                <td><form action="registration" method="post"><input type="submit" value="Sign Up" /></form></td>
+                <td><form action="registration" method="post"><input class="a_menu" type="submit" value="Sign Up" /></form></td>
         </tr>
     </table>
     <c:if test="${message!=null}">

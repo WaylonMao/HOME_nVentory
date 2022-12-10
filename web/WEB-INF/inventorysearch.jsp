@@ -13,11 +13,11 @@
         <h1>HOME nVentory</h1>
         <h3>Menu</h3>
         <ul>
-            <li><a href="admin">Admin</a></li>
-            <li><a href="inventory">Inventory</a></li>
-            <li><a href="profile">Profile</a></li>
-            <li><a href="category">Category</a></li>
-            <li><a href="?action=logout">Logout</a></li>
+            <li><a class="a_menu" href="admin">Admin</a></li>
+            <li><a class="a_menu" href="inventory">Inventory</a></li>
+            <li><a class="a_menu" href="profile">Profile</a></li>
+            <li><a class="a_menu" href="category">Category</a></li>
+            <li><a class="a_menu" href="?action=logout">Logout</a></li>
         </ul>
         <h2>Search Item</h2>
         <form method="post">

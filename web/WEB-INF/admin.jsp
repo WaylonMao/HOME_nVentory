@@ -13,11 +13,11 @@
         <h1>HOME nVentory</h1>
         <h3>Menu</h3>
         <ul>
-            <li><a href="inventory">Inventory</a></li>
-            <li><a href="profile">Profile</a></li>
-            <li><a href="inventory_search">Search</a></li>
-            <li><a href="category">Category</a></li>
-            <li><a href="?action=logout">Logout</a></li>
+            <li><a class="a_menu" href="inventory">Inventory</a></li>
+            <li><a class="a_menu" href="profile">Profile</a></li>
+            <li><a class="a_menu" href="inventory_search">Search</a></li>
+            <li><a class="a_menu" href="category">Category</a></li>
+            <li><a class="a_menu" href="?action=logout">Logout</a></li>
         </ul>
         <div class="message">
             <c:if test="${message !=null}"><h2>${message}</h2></c:if>
@@ -58,22 +58,22 @@
                                 <td>
                                     <c:choose>
                                         <c:when test="${passUser == null||passUser.email!=user.email}">
-                                            <form method="post">
+                                            <form  method="post">
                                                 <input type="hidden" name="email" value="${user.email}"/>
                                                 <input type="hidden" name="action" value="changePassword"/>
                                                 <input type="submit" value="Change Password"/>
                                             </form>
                                         </c:when>
                                         <c:otherwise>
-                                            <form method="post">
+                                            <form style="display:inline;" method="post">
                                                 <input type="hidden" name="email" value="${user.email}"/>
                                                 <input type="hidden" name="action" value="confirmPassword"/>
                                                 <input type="text" name="newPassword"/>
-                                                <input type="submit" value="✓"/>
+                                                <input class="a_green" type="submit" value="✓"/>
                                             </form>
-                                            <form method="post">
+                                            <form style="display:inline;" method="post">
                                                 <input type="hidden" name="action" value="cancelPassword"/>
-                                                <input type="submit" value="✗"/>
+                                                <input class="a_red" type="submit" value="✗"/>
                                             </form>
                                         </c:otherwise>
                                     </c:choose>

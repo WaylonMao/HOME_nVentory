@@ -12,9 +12,12 @@
     <body>
         <h1>HOME nVentory</h1>
         <h3>Menu</h3>
-        <ul>            
-            <li><a href="admin">Admin</a></li>      
-            <li><a href="?action=logout">Logout</a></li>
+        <ul>                            
+            <li><a class="a_menu" href="admin">Admin</a></li>
+            <li><a class="a_menu" href="inventory">Inventory</a></li>
+            <li><a class="a_menu" href="profile">Profile</a></li>
+            <li><a class="a_menu" href="inventory_search">Search</a></li>     
+            <li><a class="a_menu" href="?action=logout">Logout</a></li>
         </ul>
         <h2>Category Management</h2>
         <h3 class="message">${message}</h3>

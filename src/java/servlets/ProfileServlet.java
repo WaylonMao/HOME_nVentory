@@ -1,14 +1,14 @@
 package servlets;
 
 import java.io.IOException;
-import java.io.PrintWriter;
+import java.security.NoSuchAlgorithmException;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import modules.User;
-import services.RoleService;
+import services.HashPasswordUtil;
 import services.UserService;
 
 /**
@@ -44,8 +44,8 @@ public class ProfileServlet extends HttpServlet {
         HttpSession session = req.getSession();
         User user = (User) session.getAttribute("user");
         UserService us = new UserService(user);
-        
-        if (action != null && action.equals("cancel")){
+
+        if (action != null && action.equals("cancel")) {
             resp.sendRedirect("inventory");
             return;
         }
@@ -70,7 +70,15 @@ public class ProfileServlet extends HttpServlet {
             user.setFirstName(firstName);
             user.setLastName(lastName);
             if (changePass) {
-                user.setPassword(password1);
+                String salt = HashPasswordUtil.getSalt();
+                String hashedPassword = "";
+                try {
+                    hashedPassword = HashPasswordUtil.hashAndSaltPassword(password1, salt);
+                } catch (NoSuchAlgorithmException ex) {
+                    req.setAttribute("message", "NoSuchAlgorithmException.");
+                }
+                user.setSalt(salt);
+                user.setPassword(hashedPassword);
             }
             message = us.update(user);
             req.setAttribute("message", message);

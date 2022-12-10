@@ -14,11 +14,15 @@
         <h1>HOME nVentory</h1>
         <h3>Menu</h3>
         <ul>
-            <li><a href="profile">Profile</a></li>
-            <c:if test="${user.role.roleId==1}"><li><a href="admin">Admin</a></li></c:if>      
-                <li><a href="?action=logout">Logout</a></li>
-            </ul>
-            <h2>Inventory for ${user.firstName} ${user.lastName}</h2>
+            <c:if test="${user.role.roleId==1}">
+                <li><a class="a_menu" href="admin">Admin</a></li>
+                <li><a class="a_menu" href="inventory_search">Search</a></li>
+                <li><a class="a_menu" href="category">Category</a></li>
+                </c:if>  
+            <li><a class="a_menu" href="profile">Profile</a></li>
+            <li><a class="a_menu" href="?action=logout">Logout</a></li>
+        </ul>
+        <h2>Inventory for ${user.firstName} ${user.lastName}</h2>
         <h3 class="message">${message}</h3>
         <div>
             <table class="side_table">

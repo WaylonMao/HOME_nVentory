@@ -50,14 +50,16 @@ input[type=submit]:active{
 
 ul{
     list-style: none;
+    white-space: nowrap;
     padding-left: 0px;
 }
 
 li{
+    display:inline-block;
     height: 30px;
 }
 
-a{
+.a_menu{
     margin: auto;
     padding: 0;
     border-width: 0;
@@ -69,16 +71,91 @@ a{
     overflow: hidden;
     border-width: 0;
     border-radius: 4px;
-    background: #04AA6D;
+    background: #0770ad;
     color: #fff;
     -webkit-transition: all 0.3s cubic-bezier(0.02, 0.01, 0.47, 1);
     transition: all 0.3s cubic-bezier(0.02, 0.01, 0.47, 1);
     text-decoration:none;
 }
-a:hover{
+.a_menu:hover{
     opacity: 0.75;
 }
-a:active{
+.a_menu:active{
+    opacity: 1;
+}
+
+.a_menu[href="?action=logout"]{
+    margin: auto;
+    padding: 0;
+    border-width: 0;
+    border-color: transparent;
+    background: transparent;
+    cursor: pointer;
+    position: relative;
+    padding: 3px 6px;
+    overflow: hidden;
+    border-width: 0;
+    border-radius: 4px;
+    background: #02b3ff;
+    color: #fff;
+    -webkit-transition: all 0.3s cubic-bezier(0.02, 0.01, 0.47, 1);
+    transition: all 0.3s cubic-bezier(0.02, 0.01, 0.47, 1);
+    text-decoration:none;
+}
+.a_menu[href="?action=logout"]:hover{
+    opacity: 0.75;
+}
+.a_menu[href="?action=logout"]:active{
+    opacity: 1;
+}
+
+.a_red{
+    margin: auto;
+    padding: 0;
+    border-width: 0;
+    border-color: transparent;
+    background: transparent;
+    cursor: pointer;
+    position: relative;
+    padding: 2px 2px;
+    overflow: hidden;
+    border-width: 0;
+    border-radius: 2px;
+    background: #ff0202;
+    color: #fff;
+    -webkit-transition: all 0.3s cubic-bezier(0.02, 0.01, 0.47, 1);
+    transition: all 0.3s cubic-bezier(0.02, 0.01, 0.47, 1);
+    text-decoration:none;
+}
+.a_red:hover{
+    opacity: 0.75;
+}
+.a_red:active{
+    opacity: 1;
+}
+
+.a_green{
+    margin: auto;
+    padding: 0;
+    border-width: 0;
+    border-color: transparent;
+    background: transparent;
+    cursor: pointer;
+    position: relative;
+    padding: 2px 2px;
+    overflow: hidden;
+    border-width: 0;
+    border-radius: 2px;
+    background: #00cb44;
+    color: #fff;
+    -webkit-transition: all 0.3s cubic-bezier(0.02, 0.01, 0.47, 1);
+    transition: all 0.3s cubic-bezier(0.02, 0.01, 0.47, 1);
+    text-decoration:none;
+}
+.a_green:hover{
+    opacity: 0.75;
+}
+.a_green:active{
     opacity: 1;
 }
 

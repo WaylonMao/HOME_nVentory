@@ -21,7 +21,7 @@ The original password in database is unencrypted. But there is a function during
 
 3. Set root password for MySQL Workbench with "password", or you need to change the password in the context.xml file.
 
-4. Copy web folder to the webapps folder of Tomcat.
+4. Copy build\web\ to the Tomcat's webapps\YourURL\ folder.
 
 5. Open MySQL Workbench or use cmd line and run the script in the database folder. (/src/java/sqlfile/inventorydb.sql)
 

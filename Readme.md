@@ -27,7 +27,7 @@ The original password in database is unencrypted. But there is a function during
 
 6. Start Tomcat and open the web application in the browser.
 
-## Authors 关于作者
+## Authors
 
 ### Weilong Mao
 
